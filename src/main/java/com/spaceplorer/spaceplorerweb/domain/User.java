@@ -33,6 +33,8 @@ public class User {
     @Column(unique = true)
     private final String profileImageUrl;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     //회원 조회
     public User(UserRequestDto requestDto) {
