@@ -3,7 +3,7 @@ package com.spaceplorer.spaceplorerweb.common;
 public class Messages {
 
     //USER
-    public final static String FOUND_USER = "회원 조회되었습니다.";
+    public final static String FOUND_USER = "회원이 조회되었습니다.";
     public final static String NOT_FOUND_USER = "회원을 찾을 수 없습니다.";
 
     //TOKEN
@@ -18,6 +18,16 @@ public class Messages {
     public final static String NOT_FOUND_COOKIES= "쿠키를 찾을 수 없습니다.";
     public final static String FOUNT_COOKIES= "발견한 쿠키 = {}";
     public final static String UNSUPPORTED_COOKIES= "지원하지 않는 쿠키 입니다.";
+
+    //CATEGORY
+    public final static String NOT_FOUND_CATEGORY= "찾을 수 없는 카테고리 입니다.";
+    public final static String BAD_REQUEST_CATEGORY= "잘못된 형식의 카테고리입니다.";
+    public final static String DELETE_CATEGORY= "카테고리를 제거 완료 되었습니다.";
+    public final static String CREATED_CATEGORY= "카테고리 생성 완료 되었습니다.";
+    public final static String FIND_ALL_CATEGORY= "모둔 카테고리를 가져왔습니다.";
+    public final static String DUPLICATED_CATEGORY= "중복된 카테고리명 입니다.";
+
+
 
 
 }
