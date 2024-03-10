@@ -1,14 +1,17 @@
 package com.spaceplorer.spaceplorerweb.dto.response;
 
 import com.spaceplorer.spaceplorerweb.domain.Category;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class CategoryResponseDto {
 
-    private final Long id;
+    private Long id;
 
-    private final String categoryName;
+    private String categoryName;
 
     public CategoryResponseDto(Category category) {
         this.id = category.getId();
