@@ -1,8 +1,10 @@
 package com.spaceplorer.spaceplorerweb.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.List;
 @Getter
 @Table(name = "planet")
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Planet {
 
     @Id
