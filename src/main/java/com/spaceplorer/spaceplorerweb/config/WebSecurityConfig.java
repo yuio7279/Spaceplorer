@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -49,6 +50,10 @@ public class WebSecurityConfig {
         http
                 .httpBasic(AbstractHttpConfigurer::disable);
 
+        http
+                .headers(headers -> headers
+                                .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+
         //경로별 인가
         http
 
@@ -60,6 +65,8 @@ public class WebSecurityConfig {
                         .failureUrl("/login/fail")
                 )
                 .authorizeHttpRequests((auth) -> auth
+                        //h2
+                        .requestMatchers("/h2-console/**").permitAll()
                         //static
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 
