@@ -45,10 +45,6 @@ public class Planet {
     @OneToMany(mappedBy = "planet")
     private final List<City> cityList = new ArrayList<>();
 
-    //이 행성에 여행 가능한 우주선 리스트
-    @OneToMany(mappedBy = "planet")
-    private List<ExplorableTravelTime> explorableTravelTimeList = new ArrayList<>();
-
 
     //행성 생성자
     public Planet(String planetName, String temperature, String cycle, Long distanceFromEarth, String description, Boolean requiredHhms) {
@@ -63,11 +59,6 @@ public class Planet {
     public void addCityList(City city){
         cityList.add(city);
         city.setPlanet(this);
-    }
-
-    public void addExplorablePlanetList(ExplorableTravelTime explorableTravelTime){
-        explorableTravelTimeList.add(explorableTravelTime);
-        explorableTravelTime.setPlanet(this);
     }
 
 }
