@@ -2,8 +2,11 @@ package com.spaceplorer.spaceplorerweb.common;
 
 public class Messages {
 
+    //COMMON
+    public final static String INVALID_ID= "유효하지 않은 정보입니다.";
+
     //USER
-    public final static String FOUND_USER = "회원이 조회되었습니다.";
+    public final static String FOUND_USER = "회원정보를 가져오는 데 성공 하였습니다.";
     public final static String NOT_FOUND_USER = "회원을 찾을 수 없습니다.";
 
     //TOKEN
@@ -22,10 +25,16 @@ public class Messages {
     //CATEGORY
     public final static String NOT_FOUND_CATEGORY= "찾을 수 없는 카테고리 입니다.";
     public final static String BAD_REQUEST_CATEGORY= "잘못된 형식의 카테고리입니다.";
-    public final static String DELETE_CATEGORY= "카테고리를 제거 완료 되었습니다.";
-    public final static String CREATED_CATEGORY= "카테고리 생성 완료 되었습니다.";
-    public final static String FIND_ALL_CATEGORY= "모둔 카테고리를 가져왔습니다.";
+    public final static String DELETE_CATEGORY= "카테고리가 제거 완료 되었습니다.";
+    public final static String CREATED_CATEGORY= "카테고리가 생성 완료 되었습니다.";
+    public final static String FIND_ALL_CATEGORY= "모둔 카테고리를 불러오는데 성공 하였습니다.";
     public final static String DUPLICATED_CATEGORY= "중복된 카테고리명 입니다.";
+
+    //PLANET
+    public final static String NOT_FOUND_PLANET= "행성 데이터를 찾을 수 없습니다.";
+    public final static String FOUND_PLANET= "행성을 불러오는데 성공 하였습니다.";
+        //CITY
+    public final static String FOUND_CITY= "도시목록을 불러오는데 성공 하였습니다.";
 
 
 
