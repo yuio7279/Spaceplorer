@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponseDto<T> {
-    private  T data;
+    private final T data;
     private final String message;
     private final Integer statusCode;
 
@@ -16,8 +16,4 @@ public class ApiResponseDto<T> {
         this.statusCode = statusCode;
     }
 
-    public ApiResponseDto(String message, Integer statusCode) {
-        this.message = message;
-        this.statusCode = statusCode;
-    }
 }
