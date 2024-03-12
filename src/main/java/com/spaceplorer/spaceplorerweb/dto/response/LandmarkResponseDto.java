@@ -17,5 +17,4 @@ public class LandmarkResponseDto {
 
     private String description;
 
-    private CityResponseDto city;
 }

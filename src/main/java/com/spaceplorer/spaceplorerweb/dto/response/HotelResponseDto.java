@@ -20,5 +20,4 @@ public class HotelResponseDto {
     //설명
     private  String description;
 
-    private CityResponseDto city;
 }

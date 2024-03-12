@@ -17,7 +17,6 @@ public class EntertainmentResponseDto {
 
     private String description;
 
-    private CityResponseDto city;
 
 
 }
