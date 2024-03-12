@@ -1,7 +1,6 @@
 package com.spaceplorer.spaceplorerweb.controller;
 
 import com.spaceplorer.spaceplorerweb.common.ApiResponseDto;
-import com.spaceplorer.spaceplorerweb.dto.response.PlanetNameCityListResponseDto;
 import com.spaceplorer.spaceplorerweb.dto.response.PlanetResponseDto;
 import com.spaceplorer.spaceplorerweb.service.PlanetService;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +21,5 @@ public class PlanetController {
             @PathVariable("planet_id") Long id){
 
         return planetService.getPlanetById(id);
-    }
-    @GetMapping("/{planet_id}/cities")
-    public ResponseEntity<ApiResponseDto<PlanetNameCityListResponseDto>> getPlanetNameCityListByPlanetId(
-            @PathVariable("planet_id") Long id){
-
-        return planetService.getPlanetNameCityListByPlanetId(id);
     }
 }
