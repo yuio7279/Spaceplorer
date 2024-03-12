@@ -30,8 +30,6 @@ public class Hotel {
     private City city;
 
 
-
-
     public Hotel(String hotelName, Long rating, String description, City city) {
         this.hotelName = hotelName;
         this.rating = rating;
