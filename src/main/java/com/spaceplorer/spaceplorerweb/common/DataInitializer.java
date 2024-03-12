@@ -25,6 +25,8 @@ public class DataInitializer implements CommandLineRunner {
     private final SpaceShipRepository spaceShipRepository;
     private final PlanetRepository planetRepository;
     private final HhmsRepository hhmsRepository;
+    private final EntertainmentRepository entertainmentRepository;
+    private final LandmarkRepository landmarkRepository;
 
     List<SpaceShip> spaceShipList = new ArrayList<>();
     List<Planet> planetList = new ArrayList<>();
@@ -38,29 +40,40 @@ public class DataInitializer implements CommandLineRunner {
         //2
         initSpaceShip();
         initPlanet();
+        initCity();
 
         //3
-        initCity();
-        initHotel();
-
-        //4
         initHhms();
+        initEntertainment();
+        initHotel();
+        initLandmark();
+    }
+
+    private void initLandmark() {
+        if (!getCityList()) return;
+        landmarkRepository.save(new Landmark("랜드마크1","전설의 랜드마크","전설의 랜드마크입니다.",cityList.get(0)));
+        landmarkRepository.save(new Landmark("랜드마크2","전설의 랜드마크2","전설의 랜드마크입니다.2",cityList.get(0)));
+        landmarkRepository.save(new Landmark("랜드마크3","전설의 랜드마크3","전설의 랜드마크입니다.3",cityList.get(0)));
+    }
 
 
+
+    private void initEntertainment() {
+        if(!getCityList()) return;
+
+        entertainmentRepository.save(new Entertainment("비행기탐험","비행기탐험을 하세요!","비행기탐험을 할 수 있음", cityList.get(0)));
+        entertainmentRepository.save(new Entertainment("비행기탐험2","비행기탐험을 하세요!2","비행기탐험을 할 수 있음2", cityList.get(0)));
+        entertainmentRepository.save(new Entertainment("비행기탐험3","비행기탐험을 하세요!3","비행기탐험을 할 수 있음3", cityList.get(0)));
     }
 
     private void initHhms() {
-        spaceShipList.addAll(spaceShipRepository.findAll());
-
-        if(spaceShipList.isEmpty()){
-            log.error("[spaceShipList.isEmpty:{}]", true);
-            return;
-        }
+        if (!getSpaceShipList()) return;
 
         hhmsRepository.save(new Hhms(100000000L,50000000L, 2000000L, spaceShipList.get(0)));
         hhmsRepository.save(new Hhms(70000000L,50000000L,3000000L, spaceShipList.get(2)));
         hhmsRepository.save(new Hhms(200000000L,20000000L,5000000L, spaceShipList.get(4)));
     }
+
 
 
     private void initPlanet() {
@@ -79,11 +92,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initHotel() {
-        cityList.addAll(cityRepository.findAll());
-
-        if(cityList.isEmpty()){
-            return;
-        }
+        if (!getCityList()) return;
         //달
             //루나리아
         hotelRepository.save(new Hotel("실버문 레지던스",5L,"이 곳의 중심에 위치해 있으며, 달빛 아래에서의 로맨틱한 밤을 제공합니다.", cityList.get(3)));
@@ -121,11 +130,7 @@ public class DataInitializer implements CommandLineRunner {
 
     private void initCity() {
 
-        planetList.addAll(planetRepository.findAll());
-
-        if(planetList.isEmpty()){
-            return;
-        }
+        if (!getPlanetList()) return;
 
 
         //화성
@@ -149,10 +154,43 @@ public class DataInitializer implements CommandLineRunner {
 
     }
 
+
+
     private void initCategory() {
         categoryRepository.save(new Category("금성"));
         categoryRepository.save(new Category("달"));
         categoryRepository.save(new Category("화성"));
         categoryRepository.save(new Category("천왕성"));
+    }
+
+
+
+    private boolean getPlanetList() {
+        planetList.addAll(planetRepository.findAll());
+
+        if(planetList.isEmpty()){
+            log.error("[Not found planetList:]");
+            return false;
+        }
+        return true;
+    }
+    private boolean getCityList() {
+        cityList.addAll(cityRepository.findAll());
+
+        if(cityList.isEmpty()){
+            log.error("[Not found cityList:]");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean getSpaceShipList() {
+        spaceShipList.addAll(spaceShipRepository.findAll());
+
+        if(spaceShipList.isEmpty()){
+            log.error("[spaceShipList.isEmpty:]");
+            return false;
+        }
+        return true;
     }
 }
