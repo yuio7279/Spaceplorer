@@ -46,7 +46,7 @@ public class CategoryService {
 
         Optional<Category> entity = categoryRepository.findById(id);
 
-        //존재하지 않는 카테고리 id
+        //중복 체크
         Optional<ResponseEntity<ApiResponseDto<CategoryResponseDto>>> notResponseDto = util.emptyCheckEntity(log, entity);
         if(notResponseDto.isPresent()){
             log.error("[Not found category id:{}]", id);
