@@ -1,3 +1,4 @@
+/*
 package com.spaceplorer.spaceplorerweb.dto.response;
 
 import lombok.*;
@@ -23,3 +24,4 @@ public class PlanetNameCityListResponseDto {
         this.cityList = cityList;
     }
 }
+*/
