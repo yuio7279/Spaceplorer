@@ -26,7 +26,8 @@ public class Landmark {
     @Column(nullable = false)
     private String description;
 
-    @ManyToOne
+    //id 검증용으로만 쓰이기 때문에 LAZY를 주었다.
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
     private City city;
 

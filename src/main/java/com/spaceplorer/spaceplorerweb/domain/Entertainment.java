@@ -1,6 +1,7 @@
 package com.spaceplorer.spaceplorerweb.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Table(name = "entertainment")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Entertainment {
 
     @Id
@@ -26,7 +27,8 @@ public class Entertainment {
     @Column(nullable = false, unique = true)
     private String description;
 
-    @ManyToOne
+    //id 검증용으로만 쓰이기 때문에 LAZY를 주었다.
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
     private City city;
 
