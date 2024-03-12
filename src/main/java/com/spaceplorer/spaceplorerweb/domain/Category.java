@@ -2,9 +2,11 @@ package com.spaceplorer.spaceplorerweb.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @Table(name = "category")
 public class Category {
 
@@ -16,9 +18,6 @@ public class Category {
     @Column(unique = true, nullable = false)
     private String categoryName;
 
-    public Category() {
-
-    }
     public Category(String categoryName) {
         this.categoryName = categoryName;
     }
