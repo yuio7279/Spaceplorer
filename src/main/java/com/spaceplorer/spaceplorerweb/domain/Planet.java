@@ -46,6 +46,7 @@ public class Planet {
     private Boolean requiredHhms;
 
     //행성에 존재하는 도시
+    //항상 cityList를 조회하기 때문에 eager로 설정
     @OneToMany(mappedBy = "planet")
     private final List<City> cityList = new ArrayList<>();
 

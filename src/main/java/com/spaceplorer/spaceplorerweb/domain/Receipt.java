@@ -20,7 +20,7 @@ public class Receipt {
     @Column(nullable = false)
     private Long totalPrice;
 
-    //선택된 옵션 리스트
+    //선택된 옵션 리스트 eager
     @OneToMany(mappedBy = "receipt")
     @Column(nullable = false)
     private final List<SelectedOption> selectedOptionList = new ArrayList<>();
