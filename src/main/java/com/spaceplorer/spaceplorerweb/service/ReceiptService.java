@@ -1,7 +1,6 @@
 package com.spaceplorer.spaceplorerweb.service;
 
 import com.spaceplorer.spaceplorerweb.common.ApiResponseDto;
-import com.spaceplorer.spaceplorerweb.common.Messages;
 import com.spaceplorer.spaceplorerweb.common.Util;
 import com.spaceplorer.spaceplorerweb.domain.Option;
 import com.spaceplorer.spaceplorerweb.domain.Receipt;
@@ -17,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,13 +37,21 @@ public class ReceiptService {
     public ResponseEntity<ApiResponseDto<ReceiptResponseDto>> createReceipt(ReceiptRequestDto receiptRequestDto) {
         
         List<Option> selectedOptionEntityList = optionRepository.findByIdIn(receiptRequestDto.getOptionIdList());
-        log.info("[selectedOptionEntityList:{}]",selectedOptionEntityList);
 
-        //옵션 리스트에서 선택된 옵션꺼내 총 금액 계산
+        if(selectedOptionEntityList.size() != receiptRequestDto.getOptionIdList().size())
+        {
+            log.error("[Does not match id list :{} != {}]", selectedOptionEntityList.size(), receiptRequestDto.getOptionIdList().size());
+            return util.responseGenerator(BAD_REQUEST, null, NOT_MATCH_OPTION, BAD_REQUEST.value());
+        }
+
+        log.info("[SelectedOptionEntityList:{}]",selectedOptionEntityList);
+
+        //총 금액 계산
         Long calculatedTotalPrice = calculateTotalPrice(selectedOptionEntityList);
-        log.info("[calculatedTotalPrice:{}]",calculatedTotalPrice);
+        log.info("[CalculatedTotalPrice:{}]",calculatedTotalPrice);
+
         //총 계산금액 비교
-        if(!checkTotalPrice(receiptRequestDto, calculatedTotalPrice)){
+        if(!calculatedTotalPrice.equals(receiptRequestDto.getTotalPrice())){
             log.error("[Does not match total price :{} != {}]", receiptRequestDto.getTotalPrice(), calculatedTotalPrice);
             return util.responseGenerator(BAD_REQUEST, null, NOT_MATCH_TOTAL_PRICE, BAD_REQUEST.value());
         }
@@ -67,10 +73,6 @@ public class ReceiptService {
         }
 
         return createdReceipt;
-    }
-
-    private boolean checkTotalPrice(ReceiptRequestDto receiptRequestDto, Long calculetedTotalPrice) {
-        return calculetedTotalPrice.equals(receiptRequestDto.getTotalPrice());
     }
 
     private  Long calculateTotalPrice(List<Option> selectedOptionEntityList) {
