@@ -47,7 +47,8 @@ public class Messages {
 
     //RECETPT
     public final static String NOT_MATCH_TOTAL_PRICE = "총 계산 금액이 일치하지 않습니다.";
-    public final static String CREATED_RECEIPT = "영수증을 생성 완료되었습니다.";
+    public final static String CREATED_RECEIPT = "영수증이 생성 완료되었습니다.";
+    public final static String FOUND_RECEIPT= "영수증 정보를 불러오는데 성공 하였습니다.";
 
 
 
