@@ -1,5 +1,7 @@
 package com.spaceplorer.spaceplorerweb.domain.spaceship;
 
+import com.spaceplorer.spaceplorerweb.domain.Option;
+import com.spaceplorer.spaceplorerweb.domain.OptionType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "space_ship")
 @NoArgsConstructor
-public class SpaceShip {
+public class SpaceShip extends Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +42,8 @@ public class SpaceShip {
 
 
     //기본 우주선 생성
-    public SpaceShip(String shipName, Long shipSpeed, Long shipDefaultCost, Long shipPerDayCost, Long capacity, String description) {
+    public SpaceShip(String shipName, Long shipSpeed, Long shipDefaultCost, Long shipPerDayCost, Long capacity, String description, String optionName, Long cost) {
+        super(optionName, cost, OptionType.SPACESHIP);
         this.shipName = shipName;
         this.shipSpeed = shipSpeed;
         this.shipPerDayCost = shipPerDayCost;
