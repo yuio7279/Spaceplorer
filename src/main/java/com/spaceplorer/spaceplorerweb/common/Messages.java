@@ -4,6 +4,7 @@ public class Messages {
 
     //COMMON
     public final static String INVALID_ID= "유효하지 않은 정보입니다.";
+    public final static String NOT_FOUND_DATA= "데이터가 존재하지 않습니다.";
 
     //USER
     public final static String FOUND_USER = "회원정보를 가져오는 데 성공 하였습니다.";
@@ -34,7 +35,19 @@ public class Messages {
     public final static String NOT_FOUND_PLANET= "행성 데이터를 찾을 수 없습니다.";
     public final static String FOUND_PLANET= "행성을 불러오는데 성공 하였습니다.";
         //CITY
-    public final static String FOUND_CITY= "도시목록을 불러오는데 성공 하였습니다.";
+    public final static String FOUND_CITY= "도시정보를 불러오는데 성공 하였습니다.";
+    public final static String NOT_FOUND_CITY= "도시 데이터를 찾을 수 없습니다.";
+    public final static String FOUND_ACT_ENTERTAINMENT= "도시 엔터테인먼트 리스트를 불러오는데 성공 하였습니다.";
+
+    public final static String FOUND_ACT_HOTEL= "도시의 호텔 리스트를 불러오는데 성공 하였습니다.";
+
+    public final static String FOUND_ACT_LANDMARK= "도시의 랜드마크 리스트를 불러오는데 성공 하였습니다.";
+
+    public final static String NOT_MATCH_PLANET_CITY= "행성 내의 도시가 아닙니다.";
+
+    //RECETPT
+    public final static String NOT_MATCH_TOTAL_PRICE = "총 계산 금액이 일치하지 않습니다.";
+    public final static String CREATED_RECEIPT = "영수증을 생성 완료되었습니다.";
 
 
 
