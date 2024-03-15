@@ -47,13 +47,14 @@ public class DataInitializer implements CommandLineRunner {
         initEntertainment();
         initHotel();
         initLandmark();
+
     }
 
     private void initLandmark() {
         if (!getCityList()) return;
-        landmarkRepository.save(new Landmark("랜드마크1","전설의 랜드마크","전설의 랜드마크입니다.",cityList.get(0)));
-        landmarkRepository.save(new Landmark("랜드마크2","전설의 랜드마크2","전설의 랜드마크입니다.2",cityList.get(0)));
-        landmarkRepository.save(new Landmark("랜드마크3","전설의 랜드마크3","전설의 랜드마크입니다.3",cityList.get(0)));
+        landmarkRepository.save(new Landmark("랜드마크1","전설의 랜드마크","전설의 랜드마크입니다.",cityList.get(0),"랜드마크1",2000L));
+        landmarkRepository.save(new Landmark("랜드마크2","전설의 랜드마크2","전설의 랜드마크입니다.2",cityList.get(0),"랜드마크2",4000L));
+        landmarkRepository.save(new Landmark("랜드마크3","전설의 랜드마크3","전설의 랜드마크입니다.3",cityList.get(0),"랜드마크3",6000L));
     }
 
 
@@ -61,9 +62,9 @@ public class DataInitializer implements CommandLineRunner {
     private void initEntertainment() {
         if(!getCityList()) return;
 
-        entertainmentRepository.save(new Entertainment("비행기탐험","비행기탐험을 하세요!","비행기탐험을 할 수 있음", cityList.get(0)));
-        entertainmentRepository.save(new Entertainment("비행기탐험2","비행기탐험을 하세요!2","비행기탐험을 할 수 있음2", cityList.get(0)));
-        entertainmentRepository.save(new Entertainment("비행기탐험3","비행기탐험을 하세요!3","비행기탐험을 할 수 있음3", cityList.get(0)));
+        entertainmentRepository.save(new Entertainment("비행기탐험","비행기탐험을 하세요!","비행기탐험을 할 수 있음", cityList.get(0),"비행기탕험", 10000L));
+        entertainmentRepository.save(new Entertainment("비행기탐험2","비행기탐험을 하세요!2","비행기탐험을 할 수 있음2", cityList.get(0),"비행기탕험2", 9999L));
+        entertainmentRepository.save(new Entertainment("비행기탐험3","비행기탐험을 하세요!3","비행기탐험을 할 수 있음3", cityList.get(0), "비행기탕험3",8000L));
     }
 
     private void initHhms() {
@@ -84,48 +85,48 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initSpaceShip() {
-        spaceShipRepository.save(new SpaceShip("호버크루즈쉽(공중여객선)", 5000000L, 5000000L, 200000L, 25L, "이 혁신적인 공중여객선은 바다 위를 날아다니며, 특정 행성들의 이동을 가능하게 합니다. 화성의 붉은 사막부터 천왕성의 공중정원까지 여행하는 동안 잊을 수 없는 풍경을 경험할 수 있습니다."));
-        spaceShipRepository.save(new SpaceShip("스페이스비틀(우주고속선)", 10000000L, 5000000L, 500000L,20L, "가족 단위 여행객을 위해 특별히 설계된 이 우주고속선은 단거리기준 가장 빠른 속도를 자랑하니다. 20인승으로 아늑하며, 개별 승객의 편안함을 위한 최신 편의 시설과 엔터테인먼트 시스템을 제공합니다. 가족과 함께 우주 여행의 즐거움을 만끽하세요."));
-        spaceShipRepository.save(new SpaceShip("더퍼스트익스플로러쉽(호화탐험선)", 4000000L, 15000000L, 1000000L,300L, "우주의 신비를 탐험하고자 하는 이들을 위한 궁극의 호화 탐험선입니다. 300명의 탑승객을 수용할 수 있으며, 다양한 즐길거리와 함께 선내에는 연구 시설, 체육관, 스파, 여러 레스토랑 등이 마련되어 있습니다."));
-        spaceShipRepository.save(new SpaceShip("스타셀레스트요트(우주요트)", 2000000L, 3000000L,400000L, 10L, "개인 맞춤형 럭셔리 우주여행을 제공하는 요트. 소규모 그룹이나 커플에게 이상적으로, 별빛 아래에서의 저녁 식사와 함께 낭만적인 우주 여행을 즐길 수 있습니다."));
-        spaceShipRepository.save(new SpaceShip("갤럭시트레일블레이저(장거리탐사선)", 10000000L, 10000000L,100000L, 15L, "장기간의 우주 탐사와 연구에 적합한 우주선. 과학자와 탐험가를 위한 최신 연구 장비가 구비되어 있으며, 광대한 우주를 탐험할 수 있는 뛰어난 내구성과 자급자족 시스템을 갖추고 있습니다."));
+        spaceShipRepository.save(new SpaceShip("호버크루즈쉽(공중여객선)", 5000000L, 5000000L, 200000L, 25L, "이 혁신적인 공중여객선은 바다 위를 날아다니며, 특정 행성들의 이동을 가능하게 합니다. 화성의 붉은 사막부터 천왕성의 공중정원까지 여행하는 동안 잊을 수 없는 풍경을 경험할 수 있습니다.", "호버크루즈쉽(공중여객선)", 5000000L));
+        spaceShipRepository.save(new SpaceShip("스페이스비틀(우주고속선)", 10000000L, 5000000L, 500000L,20L, "가족 단위 여행객을 위해 특별히 설계된 이 우주고속선은 단거리기준 가장 빠른 속도를 자랑하니다. 20인승으로 아늑하며, 개별 승객의 편안함을 위한 최신 편의 시설과 엔터테인먼트 시스템을 제공합니다. 가족과 함께 우주 여행의 즐거움을 만끽하세요.","스페이스비틀(우주고속선)", 5000000L));
+        spaceShipRepository.save(new SpaceShip("더퍼스트익스플로러쉽(호화탐험선)", 4000000L, 15000000L, 1000000L,300L, "우주의 신비를 탐험하고자 하는 이들을 위한 궁극의 호화 탐험선입니다. 300명의 탑승객을 수용할 수 있으며, 다양한 즐길거리와 함께 선내에는 연구 시설, 체육관, 스파, 여러 레스토랑 등이 마련되어 있습니다.", "더퍼스트익스플로러쉽(호화탐험선)", 15000000L));
+        spaceShipRepository.save(new SpaceShip("스타셀레스트요트(우주요트)", 2000000L, 3000000L,400000L, 10L, "개인 맞춤형 럭셔리 우주여행을 제공하는 요트. 소규모 그룹이나 커플에게 이상적으로, 별빛 아래에서의 저녁 식사와 함께 낭만적인 우주 여행을 즐길 수 있습니다.", "스타셀레스트요트(우주요트)", 3000000L));
+        spaceShipRepository.save(new SpaceShip("갤럭시트레일블레이저(장거리탐사선)", 10000000L, 10000000L,100000L, 15L, "장기간의 우주 탐사와 연구에 적합한 우주선. 과학자와 탐험가를 위한 최신 연구 장비가 구비되어 있으며, 광대한 우주를 탐험할 수 있는 뛰어난 내구성과 자급자족 시스템을 갖추고 있습니다.", "갤럭시트레일블레이저(장거리탐사선)", 10000000L));
     }
 
     private void initHotel() {
         if (!getCityList()) return;
         //달
             //루나리아
-        hotelRepository.save(new Hotel("실버문 레지던스",5L,"이 곳의 중심에 위치해 있으며, 달빛 아래에서의 로맨틱한 밤을 제공합니다.", cityList.get(3)));
-        hotelRepository.save(new Hotel("크레이터 뷰 호텔",3L,"달의 크레이터를 가까이에서 관찰할 수 있는 이색적인 경험을 선사합니다.", cityList.get(3)));
+        hotelRepository.save(new Hotel("실버문 레지던스",5L,"이 곳의 중심에 위치해 있으며, 달빛 아래에서의 로맨틱한 밤을 제공합니다.", cityList.get(3), "실버문 레지던스", 1000000L));
+        hotelRepository.save(new Hotel("크레이터 뷰 호텔",3L,"달의 크레이터를 가까이에서 관찰할 수 있는 이색적인 경험을 선사합니다.", cityList.get(3), "크레이터 뷰 호텔", 400000L));
             //세레나티 베일
-        hotelRepository.save(new Hotel("퀴어트 룬 호텔",4L,"이곳의 조용한 분위기를 살린 고요하고 세련된 숙박을 제공합니다.", cityList.get(4)));
-        hotelRepository.save(new Hotel("달빛 호텔",5L,"달의 평화로운 정취를 만끽할 수 있습니다.", cityList.get(4)));
+        hotelRepository.save(new Hotel("퀴어트 룬 호텔",4L,"이곳의 조용한 분위기를 살린 고요하고 세련된 숙박을 제공합니다.", cityList.get(4), "퀴어트 룬 호텔", 750000L));
+        hotelRepository.save(new Hotel("달빛 호텔",5L,"달의 평화로운 정취를 만끽할 수 있습니다.", cityList.get(4), "달빛 호텔", 900000L));
             //아르테미스 플레인
-        hotelRepository.save(new Hotel("익스플로러스 돔",3L,"모험가들을 위해 특별히 설계된 호텔로, 평원에서의 별빛 아래 밤을 만끽할 수 있습니다.", cityList.get(5)));
+        hotelRepository.save(new Hotel("익스플로러스 돔",3L,"모험가들을 위해 특별히 설계된 호텔로, 평원에서의 별빛 아래 밤을 만끽할 수 있습니다.", cityList.get(5), "익스플로러스 돔", 300000L));
 
         //화성
             //피닉스 테라스
-        hotelRepository.save(new Hotel("피닉스 리버스 호텔",5L,"재생과 변화의 아름다움을 상징하며, 감동적인 숙박을 제공합니다.", cityList.get(2)));
+        hotelRepository.save(new Hotel("피닉스 리버스 호텔",5L,"재생과 변화의 아름다움을 상징하며, 감동적인 숙박을 제공합니다.", cityList.get(2), "피닉스 리버스 호텔", 900000L));
             //아르곤
-        hotelRepository.save(new Hotel("인페르노 타워", 4L, "아름다운 붉은 황혼을 감상할 수 있는 최고층 레스토랑과 함께하는 호텔로, 화성의 열정을 느낄 수 있는 곳입니다.", cityList.get(0)));
+        hotelRepository.save(new Hotel("인페르노 타워", 4L, "아름다운 붉은 황혼을 감상할 수 있는 최고층 레스토랑과 함께하는 호텔로, 화성의 열정을 느낄 수 있는 곳입니다.", cityList.get(0),"인페르노 타워", 700000L));
             //큐리오시티
-        hotelRepository.save(new Hotel("붉은 사막 오아시스", 5L, "화성의 붉은 사막 한가운데 위치한 오아시스 같은 호텔로, 화성의 거친 자연을 안락함 속에서 체험할 수 있습니다.", cityList.get(1)));
-        hotelRepository.save(new Hotel("스페이스 오아시스 호텔", 3L, "인류 역사상 처음으로 지어진 식민지 행성 호텔의 역사를 가지고 있다. 편안하고 현대적인 4성급 호텔로써, 다양한 레스토랑과 시설을 갖추고 있어 여행자들에게 다채로운 선택지를 제공합니다.", cityList.get(1)));
+        hotelRepository.save(new Hotel("붉은 사막 오아시스", 5L, "화성의 붉은 사막 한가운데 위치한 오아시스 같은 호텔로, 화성의 거친 자연을 안락함 속에서 체험할 수 있습니다.", cityList.get(1), "붉은 사막 오아시스", 1000000L));
+        hotelRepository.save(new Hotel("스페이스 오아시스 호텔", 3L, "인류 역사상 처음으로 지어진 식민지 행성 호텔의 역사를 가지고 있다. 편안하고 현대적인 4성급 호텔로써, 다양한 레스토랑과 시설을 갖추고 있어 여행자들에게 다채로운 선택지를 제공합니다.", cityList.get(1), "스페이스 오아시스 호텔", 550000L));
 
 
         //금성
             //오리엔타 골드필드
-        hotelRepository.save(new Hotel("골든 오아시스 호텔",5L,"화려함과 사치를 대표하는 숙소로, 최고의 호사를 경험할 수 있습니다.", cityList.get(6)));
-        hotelRepository.save(new Hotel("골든 선라이즈 스위트", 3L, "오로라 빌라에서 가장 아름다운 금성의 노을과 새벽을 감상할 수 있는 호텔입니다. 사치와 휴식을 동시에 제공합니다.", cityList.get(6)));
+        hotelRepository.save(new Hotel("골든 오아시스 호텔",5L,"화려함과 사치를 대표하는 숙소로, 최고의 호사를 경험할 수 있습니다.", cityList.get(6), "골든 오아시스 호텔", 990000L));
+        hotelRepository.save(new Hotel("골든 선라이즈 스위트", 3L, "오로라 빌라에서 가장 아름다운 금성의 노을과 새벽을 감상할 수 있는 호텔입니다. 사치와 휴식을 동시에 제공합니다.", cityList.get(6), "골든 선라이즈 스위트", 450000L));
             //베너스 블리스
-        hotelRepository.save(new Hotel("블리스풀 하벤 호텔",4L,"품격과 안락함을 제공하며, 기억에 남는 숙박을 보장합니다.", cityList.get(7)));
+        hotelRepository.save(new Hotel("블리스풀 하벤 호텔",4L,"품격과 안락함을 제공하며, 기억에 남는 숙박을 보장합니다.", cityList.get(7), "블리스풀 하벤 호텔", 800000L));
 
 
         //천왕성
             //프로스트밸리 도메인
-        hotelRepository.save(new Hotel("아이스피크 호텔",5L,"빙하 아치와 빙산의 경이로운 전망을 제공합니다. 여기서는 천왕성의 차가운 아름다움을 따뜻한 안락함 속에서 경험할 수 있습니다.", cityList.get(8)));
+        hotelRepository.save(new Hotel("아이스피크 호텔",5L,"빙하 아치와 빙산의 경이로운 전망을 제공합니다. 여기서는 천왕성의 차가운 아름다움을 따뜻한 안락함 속에서 경험할 수 있습니다.", cityList.get(8), "아이스피크 호텔", 1000000L));
             //셀레스티얼 라이트시티
-        hotelRepository.save(new Hotel("오로라 뷰 리조트",5L,"천혜의 자연 현상을 객실에서 직접 관람할 수 있는 특별한 장소입니다. 밤이 되면 호텔은 꿈꾸는 듯한 분위기로 변모하며, 방문객들에게 잊을 수 없는 경험을 선사합니다.", cityList.get(9)));
+        hotelRepository.save(new Hotel("오로라 뷰 리조트",5L,"천혜의 자연 현상을 객실에서 직접 관람할 수 있는 특별한 장소입니다. 밤이 되면 호텔은 꿈꾸는 듯한 분위기로 변모하며, 방문객들에게 잊을 수 없는 경험을 선사합니다.", cityList.get(9), "오로라 뷰 리조트", 900000L));
     }
 
     private void initCity() {
