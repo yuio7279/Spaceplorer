@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "landmark")
 @NoArgsConstructor
-public class Landmark {
+public class Landmark extends Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,8 @@ public class Landmark {
     @JoinColumn(name = "city_id")
     private City city;
 
-    public Landmark(String landmarkName, String title, String description, City city) {
+    public Landmark(String landmarkName, String title, String description, City city, String optionName, Long cost) {
+        super(optionName, cost, OptionType.LANDMARK);
         this.landmarkName = landmarkName;
         this.title = title;
         this.description = description;

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "hotel")
 @NoArgsConstructor
-public class Hotel {
+public class Hotel extends Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +25,17 @@ public class Hotel {
     @Column(nullable = false, unique = true)
     private  String description;
 
+    private Long nights = 0L;
+
+
     //id 검증용으로만 쓰이기 때문에 LAZY를 주었다.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
     private City city;
 
 
-    public Hotel(String hotelName, Long rating, String description, City city) {
+    public Hotel(String hotelName, Long rating, String description, City city, String optionName, Long cost) {
+        super(optionName, cost, OptionType.HOTEL);
         this.hotelName = hotelName;
         this.rating = rating;
         this.description = description;

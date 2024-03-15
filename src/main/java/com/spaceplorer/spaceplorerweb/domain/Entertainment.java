@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "entertainment")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Entertainment {
+public class Entertainment extends Option{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,8 @@ public class Entertainment {
     @JoinColumn(name = "city_id")
     private City city;
 
-    public Entertainment(String entertainmentName, String title, String description, City city) {
+    public Entertainment(String entertainmentName, String title, String description, City city, String optionName, Long cost) {
+        super(optionName, cost, OptionType.ENTERTAINMENT);
         this.entertainmentName = entertainmentName;
         this.title = title;
         this.description = description;
