@@ -44,11 +44,11 @@ public class ReceiptService {
             return util.responseGenerator(BAD_REQUEST, null, NOT_MATCH_OPTION, BAD_REQUEST.value());
         }
 
-        log.info("[SelectedOptionEntityList:{}]",selectedOptionEntityList);
+        log.debug("[SelectedOptionEntityList:{}]",selectedOptionEntityList);
 
         //총 금액 계산
         Long calculatedTotalPrice = calculateTotalPrice(selectedOptionEntityList);
-        log.info("[CalculatedTotalPrice:{}]",calculatedTotalPrice);
+        log.debug("[CalculatedTotalPrice:{}]",calculatedTotalPrice);
 
         //총 계산금액 비교
         if(!calculatedTotalPrice.equals(receiptRequestDto.getTotalPrice())){

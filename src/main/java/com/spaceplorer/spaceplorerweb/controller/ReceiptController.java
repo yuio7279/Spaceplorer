@@ -33,14 +33,12 @@ public class ReceiptController {
     @GetMapping("/{receipt_id}")
     public ResponseEntity<ApiResponseDto<ReceiptResponseDto>> getReceiptById(@PathVariable("receipt_id") Long id){
 
-        log.info("[getReceiptById:]");
         return receiptService.getReceiptById(id);
     }
     //회원 별 영수증 조회
     @GetMapping()
     public ResponseEntity<ApiResponseDto<List<ReceiptResponseDto>>> getReceiptListByUser(){
 
-        log.info("[getReceiptById:]");
         return receiptService.getReceiptListByUser();
     }
 }

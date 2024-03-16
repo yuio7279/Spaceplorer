@@ -28,7 +28,7 @@ public class CategoryService {
     //카테고리 생성
     public ResponseEntity<ApiResponseDto<CategoryResponseDto>> createCategory(String categoryName) {
 
-        log.info("[Category name:{}]", categoryName);
+        log.debug("[Category name:{}]", categoryName);
         //중복체크
         Optional<Category> entityTemp = categoryRepository.findByCategoryName(categoryName);
         if(entityTemp.isPresent()){
