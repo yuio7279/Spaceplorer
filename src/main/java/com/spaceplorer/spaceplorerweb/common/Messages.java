@@ -12,7 +12,7 @@ public class Messages {
 
     //TOKEN
     public final static String NOT_FOUND_TOKEN= "토큰을 찾을 수 없습니다.";
-    public final static String EXPIRED_TOKEN= "토큰을 찾을 수 없습니다.";
+    public final static String EXPIRED_TOKEN= "토큰이 만료 되었습니다.";
     public final static String INVALID_TOKEN= "유효하지 않은 토큰 입니다.";
     public final static String INVALID_TOKEN_SIGNATURE= "유효하지 않은 토큰 서명입니다..";
     public final static String UNSUPPORTED_TOKEN= "지원하지 않는 토큰 입니다.";
@@ -20,7 +20,7 @@ public class Messages {
 
     //COOKIE
     public final static String NOT_FOUND_COOKIES= "쿠키를 찾을 수 없습니다.";
-    public final static String FOUNT_COOKIES= "발견한 쿠키 = {}";
+    public final static String FOUND_COOKIES= "발견한 쿠키 = {}";
     public final static String UNSUPPORTED_COOKIES= "지원하지 않는 쿠키 입니다.";
 
     //CATEGORY
@@ -50,6 +50,14 @@ public class Messages {
     public final static String NOT_MATCH_OPTION = "요청한 옵션이 일치하지 않습니다.";
     public final static String CREATED_RECEIPT = "영수증이 생성 완료되었습니다.";
     public final static String FOUND_RECEIPT= "영수증 정보를 불러오는데 성공 하였습니다.";
+
+
+    //BOARD
+    public final static String FOUND_BOARD_LIST= "모든 게시판 글 리스트를 불러오는데 성공 하였습니다.";
+    public final static String NOT_FOUND_BOARD= "글을 찾을 수 없습니다.";
+    public final static String FOUND_BOARD= "글을 불러오는데 성공 하였습니다.";
+    public final static String CREATE_BOARD= "글을 생성하는데 성공 하였습니다.";
+    public final static String FAIL_TO_CREATE_BOARD= "글을 생성하는데 실패 하였습니다.";
 
 
 
