@@ -1,25 +1,25 @@
 package com.spaceplorer.spaceplorerweb.dto.response;
 
 import com.spaceplorer.spaceplorerweb.domain.User;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
-@RequiredArgsConstructor
+@Setter
+@NoArgsConstructor
 public class UserResponseDto {
 
-    private final Long id;
-    private final String userId;
-    private final String socialId;
-    private final String socialProvider;
-    private final String email;
-    private final String profileImageUrl;
+    private  Long id;
+    private  String userName;
+    private  String socialId;
+    private  String socialProvider;
+    private  String email;
+    private  String profileImageUrl;
 
 
     //유저 조회
     public UserResponseDto(User user) {
         this.id = user.getId();
-        this.userId = user.getUserId();
+        this.userName = user.getUserName();
         this.socialId = user.getSocialId();
         this.socialProvider = user.getSocialProvider();
         this.email = user.getEmail();

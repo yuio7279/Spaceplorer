@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserRequestDto {
     private Long id;
-    private String userId;
+    private String userName;
     private String socialId;
     private String socialProvider;
     private String email;
