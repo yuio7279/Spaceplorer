@@ -45,6 +45,9 @@ public class Planet {
     @Column(nullable = false)
     private Boolean requiredHhms;
 
+    //별칭 ex) 화성
+    private String alias;
+
     //행성에 존재하는 도시
     //항상 cityList를 조회하기 때문에 eager로 설정
     @OneToMany(mappedBy = "planet")
@@ -59,11 +62,17 @@ public class Planet {
         this.distanceFromEarth = distanceFromEarth;
         this.description = description;
         this.requiredHhms = requiredHhms;
+        this.alias = getAlias(planetName);
     }
 
     public void addCityList(City city){
         cityList.add(city);
         city.setPlanet(this);
+    }
+
+    private String getAlias(String planetName){
+        int index = planetName.indexOf("(");
+        return planetName.substring(0, index);
     }
 
 }
