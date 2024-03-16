@@ -29,8 +29,6 @@ public class UrlAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucc
         String userName = authentication.getName();
         Role role = getRole(authentication);
 
-        log.info("인증 되었습니다. user {}, role {}",userName,role);
-
         String createdToken = tokenProvider.createToken(userName, role);
 
         tokenProvider.addJwtToCookie(createdToken,response);
