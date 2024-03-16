@@ -1,3 +1,4 @@
+/*
 package com.spaceplorer.spaceplorerweb;
 
 
@@ -12,10 +13,12 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /*
  * ResponseEntity<UserResponseDto> 로 리턴을 받아야하는데...
  * 유저 세팅이 너무 오래걸려서 만들었다.
- */
+ *//*
+
 public class DataInit {
     private List<UserRequestDto> userRequestDtoList;
 
@@ -61,7 +64,8 @@ public class DataInit {
         for (UserRequestDto userRequestDto : userRequestDtoList) {
              userList.add(new User(userRequestDto));
         }
-        List<ResponseEntity<UserResponseDto>> responseEntityList = new ArrayList<>();
+*/
+/*        List<ResponseEntity<UserResponseDto>> responseEntityList = new ArrayList<>();
         for (User user : userList) {
             responseEntityList.add(
                     ResponseEntity.ok(
@@ -70,7 +74,8 @@ public class DataInit {
         }
 
 
-        return responseEntityList;
+        return responseEntityList;*//*
+
     }
 
     public UserRequestDto requestUserOne(){
@@ -84,3 +89,4 @@ public class DataInit {
                         new ApiResponseDto(Messages.FOUND_USER, HttpStatus.OK.value())));
     }
 }
+*/

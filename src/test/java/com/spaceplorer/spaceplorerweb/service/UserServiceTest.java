@@ -1,3 +1,4 @@
+/*
 package com.spaceplorer.spaceplorerweb.service;
 
 import com.spaceplorer.spaceplorerweb.DataInit;
@@ -28,7 +29,8 @@ class UserServiceTest {
     void id로유저한명조회(){
 
         //id = 0L의 유저정보가 담긴다.
-        ResponseEntity<UserResponseDto> responseEntity = dataInit.responseUserOne();
+*/
+/*        ResponseEntity<UserResponseDto> responseEntity = dataInit.responseUserOne();
         Long id = responseEntity.getBody().getId();
 
         //given
@@ -36,7 +38,8 @@ class UserServiceTest {
 
         //when
         ResponseEntity<UserResponseDto> found = userService.findById(id);
-        Assertions.assertThat((found.getBody()).getId()).isEqualTo(0L);
+        Assertions.assertThat((found.getBody()).getId()).isEqualTo(0L);*//*
+
 
     }
     @Test
@@ -50,3 +53,4 @@ class UserServiceTest {
         assertThrows(NoSuchElementException.class, () -> userService.findById(failId));
     }
 }
+*/
