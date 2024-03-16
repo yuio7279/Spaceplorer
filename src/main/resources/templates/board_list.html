@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+        <tr th:each="item : ${boardList}">
+            <th th:text="${item.id}"></th>
+            <th th:text="${item.title}"></th>
+            <th th:text="${item.views}"></th>
+            <th th:text="${item.content}"></th>
+            <th th:text="${item.aliasName}"></th>
+            <th th:text="${item.cityName}"></th>
+        </tr>
+    </thead>
+        <tr><td>
+
+        </td></tr>
+    <tbody>
+
+
+    </tbody>
+
+</table>
+</body>
+</html>
