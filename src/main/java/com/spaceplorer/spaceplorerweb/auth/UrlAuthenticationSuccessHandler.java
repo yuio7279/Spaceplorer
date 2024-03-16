@@ -1,5 +1,6 @@
 package com.spaceplorer.spaceplorerweb.auth;
 
+import com.spaceplorer.spaceplorerweb.auth.jwt.TokenProvider;
 import com.spaceplorer.spaceplorerweb.domain.Role;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,17 +12,20 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Collection;
 
-@Component
+
+//로그인 성공 시, 토큰 생성, 쿠키에 추가
 @RequiredArgsConstructor
+@Component
 @Slf4j
 public class UrlAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final TokenProvider tokenProvider;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication){
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         String userName = authentication.getName();
         Role role = getRole(authentication);
 
@@ -30,7 +34,7 @@ public class UrlAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucc
         String createdToken = tokenProvider.createToken(userName, role);
 
         tokenProvider.addJwtToCookie(createdToken,response);
-        response.addHeader("Authorization", createdToken);
+        response.sendRedirect("/login/success");
     }
 
     private Role getRole(Authentication authentication) {

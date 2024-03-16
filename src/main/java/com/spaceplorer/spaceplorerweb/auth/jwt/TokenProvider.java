@@ -1,6 +1,5 @@
-package com.spaceplorer.spaceplorerweb.auth;
+package com.spaceplorer.spaceplorerweb.auth.jwt;
 
-import com.spaceplorer.spaceplorerweb.common.Messages;
 import com.spaceplorer.spaceplorerweb.domain.Role;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -17,8 +16,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Key;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
+
+import static com.spaceplorer.spaceplorerweb.common.Messages.*;
 
 @Slf4j
 @Component
@@ -26,12 +28,13 @@ public class TokenProvider {
     //JWT 토큰 제공자
     public static final String BEARER_PREFIX = "Bearer ";
     public static final String AUTHORIZATION_HEADER  = "Authorization";
-    public final long TOKEN_TIME = 60 * 10 * 1000L; // 10분
+    public final long TOKEN_TIME = 60 * 30 * 1000L; // 10분
     public static final String AUTHORIZATION_KEY = "auth"; // 사용자 권한 값의 KEY
     public static final int SUBSTRING_NUMBER = 7;
 
     @Value("${jwt.secret.key}") // Base64 Encode 한 SecretKey
     private String secretKey;
+
     private Key key;
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -54,6 +57,7 @@ public class TokenProvider {
 
         // 토큰 생성
         public String createToken(String username, Role role) {
+
             Date date = new Date();
 
             String createdToken = BEARER_PREFIX +
@@ -64,7 +68,7 @@ public class TokenProvider {
                             .setIssuedAt(date) // 발급일
                             .signWith(key, signatureAlgorithm) // 암호화 알고리즘
                             .compact();
-            log.info(Messages.CREATED_TOKEN);
+            log.info(CREATED_TOKEN);
             return createdToken;
         }
 
@@ -89,8 +93,8 @@ public class TokenProvider {
             if (StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)) {
                 return tokenValue.substring(7);
             }
-            log.error(Messages.NOT_FOUND_TOKEN);
-            throw new NullPointerException(Messages.NOT_FOUND_TOKEN);
+            log.error(NOT_FOUND_TOKEN);
+            throw new NullPointerException(NOT_FOUND_TOKEN);
         }
 
         // 토큰 검증
@@ -99,13 +103,13 @@ public class TokenProvider {
                 Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
                 return true;
             } catch (SecurityException | MalformedJwtException | SignatureException e) {
-                log.error(Messages.INVALID_TOKEN_SIGNATURE);
+                log.error(INVALID_TOKEN_SIGNATURE);
             } catch (ExpiredJwtException e) {
-                log.error(Messages.EXPIRED_TOKEN);
+                log.error(EXPIRED_TOKEN);
             } catch (UnsupportedJwtException e) {
-                log.error(Messages.UNSUPPORTED_TOKEN);
+                log.error(UNSUPPORTED_TOKEN);
             } catch (IllegalArgumentException e) {
-                log.error(Messages.INVALID_TOKEN);
+                log.error(INVALID_TOKEN);
             }
             return false;
         }
@@ -114,33 +118,33 @@ public class TokenProvider {
         public Claims getUserInfoFromToken(String token) throws ExpiredJwtException {
             try {
                 Claims body = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-                log.info("사용자 정보 확인되었습니다. {}",body.toString());
+                log.debug("Found Claims:{}",body.toString());
                 return body;
 
             } catch (ExpiredJwtException e) {
-                log.error(Messages.EXPIRED_TOKEN);
+                log.error(EXPIRED_TOKEN);
                 return e.getClaims();
             }
         }
         // HttpServletRequest 에서 Cookie Value : JWT 가져오기
         public String getTokenFromRequest(HttpServletRequest req) {
             Cookie[] cookies = req.getCookies();
-            log.error("Authorization 쿠키를 찾습니다.");
+            log.error("GetTokenFromRequest cookies:{}", Arrays.toString(cookies));
 
-            if (cookies != null) {
-                log.error(Messages.NOT_FOUND_COOKIES);
+            if (cookies == null) {
+                log.error("Not found cookies");
                 return null;
             }
 
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals(AUTHORIZATION_HEADER)) {
-                        log.info(Messages.FOUNT_COOKIES,cookie.getName());
+                        log.debug("Found cookie! : {}",cookie.getName());
                         try {
                             String decode = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                            log.info("쿠키 복호화 되었습니다. {}", decode);
+                            log.debug("Decode Complete. {}", decode);
                             return decode;
                         } catch (UnsupportedEncodingException e) {
-                            log.error("지원하지 않는 인코딩방식입니다.");
+                            log.error("Un surposed encoding method.");
                             return null;
                         }
                     }

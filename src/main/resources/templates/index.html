@@ -6,10 +6,9 @@
 </head>
 <body>
 <!--header-->
-<a href="/auth/login">로그인 페이지로 이동</a>
+<a href="/login">로그인 페이지로 이동</a>
 <!--/header-->
-<form action="/auth/logout" method="post">
-    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+<form action="/logout" method="post">
     <button type="submit">Logout</button>
 </form>
 <br>

@@ -1,44 +1,37 @@
 package com.spaceplorer.spaceplorerweb.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class AuthController {
+
     @GetMapping("/login")
     public String login(){
 
-        log.debug("move to login page ");
         return "login";
     }
-    @ResponseBody
+
     @GetMapping("/login/success")
     public String loginSuccess(){
-
-        log.debug("Login success ");
-        return "Login success";
+        return "redirect:/";
     }
-    @ResponseBody
     @GetMapping("/login/fail")
-    public String loginFail(){
-        log.debug("login Fail");
-        return "login Fail";
+    public String loginFail(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("error", "로그인이 실패하였습니다. 재 로그인 해주세요");
+        return "redirect:/";
     }
-    @ResponseBody
-    @GetMapping("/logout/success")
-    public String logoutSuccess(){
-
-        log.debug("Logout success ");
-        return "Logout success";
-    }
-    @ResponseBody
-    @GetMapping("/logout/fail")
-    public String logoutFail(){
-
-        log.debug("Logout fail ");
-        return "Logout fail";
+    @PostMapping("/logout")
+    public String logout(RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("logoutMsg", "로그아웃이 완료 되었습니다.");
+        return "redirect:/";
     }
 }
