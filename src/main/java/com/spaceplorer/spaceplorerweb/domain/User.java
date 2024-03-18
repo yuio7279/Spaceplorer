@@ -1,9 +1,11 @@
 package com.spaceplorer.spaceplorerweb.domain;
 
-import com.spaceplorer.spaceplorerweb.dto.request.UserRequestDto;
+import com.spaceplorer.spaceplorerweb.auth.social.userdetails.SocialUserDetails;
+import com.spaceplorer.spaceplorerweb.dto.request.UserSaveRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "users")
@@ -22,29 +24,36 @@ public class User {
 
 
     @Column(nullable = false, unique = true)
-    private String socialId;
+    private Long socialId;
 
     //naver, kakao,,,
     @Column(nullable = false)
     private String socialProvider;
 
-    //실제 사용하는 이메일, 필요할 때 입력
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(unique = true)
-    private String profileImageUrl;
+    @Column(nullable = false, unique = true)
+    private String phone;
+
+    private String profileImage;
+
+    private String thumbnail;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    //회원 조회
-    public User(UserRequestDto requestDto) {
+    //회원 저장
+    public User(UserSaveRequestDto requestDto) {
         this.userName = requestDto.getUserName();
         this.socialId = requestDto.getSocialId();
         this.socialProvider = requestDto.getSocialProvider();
         this.email = requestDto.getEmail();
-        this.profileImageUrl = requestDto.getProfileImageUrl();
+        this.profileImage = requestDto.getProfileImage();
+        this.phone = requestDto.getPhone();
+        this.thumbnail = requestDto.getThumbnail();
+        this.role = requestDto.getRole();
     }
+
 
 }

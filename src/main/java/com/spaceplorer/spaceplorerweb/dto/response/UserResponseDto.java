@@ -10,7 +10,7 @@ public class UserResponseDto {
 
     private  Long id;
     private  String userName;
-    private  String socialId;
+    private  Long socialId;
     private  String socialProvider;
     private  String email;
     private  String profileImageUrl;
@@ -23,6 +23,6 @@ public class UserResponseDto {
         this.socialId = user.getSocialId();
         this.socialProvider = user.getSocialProvider();
         this.email = user.getEmail();
-        this.profileImageUrl = user.getProfileImageUrl();
+        this.profileImageUrl = user.getProfileImage();
     }
 }
