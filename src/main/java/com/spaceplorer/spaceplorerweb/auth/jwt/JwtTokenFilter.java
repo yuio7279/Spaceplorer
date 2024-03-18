@@ -47,9 +47,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 //usernamePasswordAuthenticationToken, Authentication 객체 만들어서 홀더에 넣기
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(username, "", getRoleList(role));
-
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                log.info("[Authentication success:]");
+                log.debug("[Authentication success:]");
 
                 filterChain.doFilter(request, response);
             }

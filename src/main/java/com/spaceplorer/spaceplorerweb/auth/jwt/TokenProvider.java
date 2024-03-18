@@ -68,7 +68,7 @@ public class TokenProvider {
                             .setIssuedAt(date) // 발급일
                             .signWith(key, signatureAlgorithm) // 암호화 알고리즘
                             .compact();
-            log.info(CREATED_TOKEN);
+            log.info("Created Token:{}", createdToken.substring(0,13)+"...");
             return createdToken;
         }
 
@@ -105,7 +105,9 @@ public class TokenProvider {
             } catch (SecurityException | MalformedJwtException | SignatureException e) {
                 log.error(INVALID_TOKEN_SIGNATURE);
             } catch (ExpiredJwtException e) {
-                log.error(EXPIRED_TOKEN);
+                log.debug(EXPIRED_TOKEN+" {}",token );
+                log.debug("Looking for refresh token..");
+
             } catch (UnsupportedJwtException e) {
                 log.error(UNSUPPORTED_TOKEN);
             } catch (IllegalArgumentException e) {
@@ -113,6 +115,8 @@ public class TokenProvider {
             }
             return false;
         }
+
+
 
         // 토큰에서 사용자 정보 가져오기
         public Claims getUserInfoFromToken(String token) throws ExpiredJwtException {
@@ -129,22 +133,22 @@ public class TokenProvider {
         // HttpServletRequest 에서 Cookie Value : JWT 가져오기
         public String getTokenFromRequest(HttpServletRequest req) {
             Cookie[] cookies = req.getCookies();
-            log.error("GetTokenFromRequest cookies:{}", Arrays.toString(cookies));
+            log.debug("GetTokenFromRequest cookies:{}", Arrays.toString(cookies));
 
             if (cookies == null) {
-                log.error("Not found cookies");
+                log.debug("CookieList is Empty");
                 return null;
             }
 
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals(AUTHORIZATION_HEADER)) {
-                        log.debug("Found cookie! : {}",cookie.getName());
+                        log.debug("Found cookie : {}",cookie.getName());
                         try {
                             String decode = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                            log.debug("Decode Complete. {}", decode);
+                            log.debug("Decode Complete. ");
                             return decode;
                         } catch (UnsupportedEncodingException e) {
-                            log.error("Un surposed encoding method.");
+                            log.error("Un supported encoding method.");
                             return null;
                         }
                     }

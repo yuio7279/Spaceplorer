@@ -1,4 +1,4 @@
-package com.spaceplorer.spaceplorerweb.auth;
+package com.spaceplorer.spaceplorerweb.auth.social;
 
 import com.spaceplorer.spaceplorerweb.auth.jwt.TokenProvider;
 import com.spaceplorer.spaceplorerweb.domain.Role;
@@ -32,6 +32,7 @@ public class UrlAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucc
         String createdToken = tokenProvider.createToken(userName, role);
 
         tokenProvider.addJwtToCookie(createdToken,response);
+        log.info("[Complete to login:{}, {}]",userName, role);
         response.sendRedirect("/login/success");
     }
 
