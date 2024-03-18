@@ -1,26 +1,17 @@
-/*
 package com.spaceplorer.spaceplorerweb;
 
 
-import com.spaceplorer.spaceplorerweb.common.ApiResponseDto;
-import com.spaceplorer.spaceplorerweb.common.Messages;
-import com.spaceplorer.spaceplorerweb.domain.User;
-import com.spaceplorer.spaceplorerweb.dto.request.UserRequestDto;
-import com.spaceplorer.spaceplorerweb.dto.response.UserResponseDto;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.spaceplorer.spaceplorerweb.dto.request.UserSaveRequestDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-*/
-/*
- * ResponseEntity<UserResponseDto> 로 리턴을 받아야하는데...
- * 유저 세팅이 너무 오래걸려서 만들었다.
- *//*
-
 public class DataInit {
-    private List<UserRequestDto> userRequestDtoList;
+    private List<UserSaveRequestDto> userRequestDtoList;
+
+    public List<UserSaveRequestDto> getUserRequestDtoList() {
+        return userRequestDtoList;
+    }
 
     public DataInit() {
         inputUserList();
@@ -28,65 +19,55 @@ public class DataInit {
 
     public void inputUserList(){
         userRequestDtoList = new ArrayList<>();
-        UserRequestDto requestDto = new UserRequestDto();
+        UserSaveRequestDto requestDto = new UserSaveRequestDto();
         //id=0
-        requestDto.setUserId("testMyId");
-        requestDto.setSocialId("testMyId@daum.net");
+        requestDto.setSocialId(3213213L);
         requestDto.setSocialProvider("kakao");
         requestDto.setEmail("testMyId@daum.net");
-        requestDto.setProfileImageUrl("DAF3ACK2132");
+        requestDto.setProfileImage("DAF3ACK2132.JPG");
+        requestDto.setThumbnail("DQ2132D.JPG");
+        requestDto.setUserName("testMyId");
+        requestDto.setPhone("010-3213-3213");
         userRequestDtoList.add(requestDto);
 
         //id=1
-        requestDto.setUserId("adreate");
-        requestDto.setSocialId("adreate@naver.com");
+        requestDto.setSocialId(8823413L);
         requestDto.setSocialProvider("naver");
+        requestDto.setProfileImage("DAF3ACK2132.JPG");
         requestDto.setEmail("adreate@wix.com");
-        requestDto.setProfileImageUrl("RK4322DCX1239S");
+        requestDto.setThumbnail("DQ2132D.JPG");
+        requestDto.setUserName("adreate");
+        requestDto.setPhone("010-3773-3233");
         userRequestDtoList.add(requestDto);
 
         //id=2
-        requestDto.setUserId("rrr123wqe");
-        requestDto.setSocialId("rrr123wqe@naver.com");
+        requestDto.setSocialId(774783L);
+        requestDto.setThumbnail("DQ2132D.JPG");
+        requestDto.setUserName("rrr123wqe");
+        requestDto.setPhone("010-1193-7233");
         requestDto.setSocialProvider("naver");
         requestDto.setEmail("rrr123wqe@naver.com");
-        requestDto.setProfileImageUrl("CHJSDK23423%30");
+        requestDto.setProfileImage("DWJ328DW.JPG");
+        userRequestDtoList.add(requestDto);
+
+        //id=3
+        requestDto.setSocialId(475883L);
+        requestDto.setThumbnail("DQ2132D.JPG");
+        requestDto.setUserName("rrr123wqe");
+        requestDto.setPhone("010-1093-7263");
+        requestDto.setSocialProvider("naver");
+        requestDto.setEmail("rrr123wqe@kakao.net");
+        requestDto.setProfileImage("DWJ328DW.JPG");
+
+        //id=4
+        requestDto.setSocialId(643883L);
+        requestDto.setThumbnail("DQ2132D.JPG");
+        requestDto.setUserName("rrr123wqe6666666");
+        requestDto.setPhone("010-1093-7264");
+        requestDto.setSocialProvider("naver");
+        requestDto.setEmail("rrr123wqe6666666@daum.net");
+        requestDto.setProfileImage("DWJ328DW.JPG");
         userRequestDtoList.add(requestDto);
     }
 
-
-    public List<UserRequestDto> requestUserList(){
-        return userRequestDtoList;
-
-    }
-    public List<ResponseEntity<UserResponseDto>> responseUserList(){
-        List<User> userList = new ArrayList<>();
-        for (UserRequestDto userRequestDto : userRequestDtoList) {
-             userList.add(new User(userRequestDto));
-        }
-*/
-/*        List<ResponseEntity<UserResponseDto>> responseEntityList = new ArrayList<>();
-        for (User user : userList) {
-            responseEntityList.add(
-                    ResponseEntity.ok(
-                            new UserResponseDto(user,
-                                    new ApiResponseDto(Messages.FOUND_USER, HttpStatus.OK.value()))));
-        }
-
-
-        return responseEntityList;*//*
-
-    }
-
-    public UserRequestDto requestUserOne(){
-        return userRequestDtoList.get(0);
-    }
-    public ResponseEntity<UserResponseDto> responseUserOne(){
-        User user1 = new User(userRequestDtoList.get(0));
-
-        return ResponseEntity.ok(
-                new UserResponseDto(user1,
-                        new ApiResponseDto(Messages.FOUND_USER, HttpStatus.OK.value())));
-    }
 }
-*/
