@@ -16,7 +16,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Key;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
@@ -68,7 +67,7 @@ public class TokenProvider {
                             .setIssuedAt(date) // 발급일
                             .signWith(key, signatureAlgorithm) // 암호화 알고리즘
                             .compact();
-            log.info("Created Token:{}", createdToken.substring(0,13)+"...");
+            log.debug("[Created Token:{}]", createdToken.substring(0,13)+"...");
             return createdToken;
         }
 
@@ -91,7 +90,7 @@ public class TokenProvider {
         // JWT 토큰 substring
         public String substringToken(String tokenValue) {
             if (StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)) {
-                return tokenValue.substring(7);
+                return tokenValue.substring(SUBSTRING_NUMBER);
             }
             log.error(NOT_FOUND_TOKEN);
             throw new NullPointerException(NOT_FOUND_TOKEN);
@@ -105,8 +104,8 @@ public class TokenProvider {
             } catch (SecurityException | MalformedJwtException | SignatureException e) {
                 log.error(INVALID_TOKEN_SIGNATURE);
             } catch (ExpiredJwtException e) {
-                log.debug(EXPIRED_TOKEN+" {}",token );
-                log.debug("Looking for refresh token..");
+                log.warn(EXPIRED_TOKEN+" {}...]",token.substring(0, SUBSTRING_NUMBER) );
+                log.debug("[Looking for refresh token..]");
 
             } catch (UnsupportedJwtException e) {
                 log.error(UNSUPPORTED_TOKEN);
@@ -122,7 +121,7 @@ public class TokenProvider {
         public Claims getUserInfoFromToken(String token) throws ExpiredJwtException {
             try {
                 Claims body = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-                log.debug("Found Claims:{}",body.toString());
+                log.debug("[Found Claims:{}]",body.toString());
                 return body;
 
             } catch (ExpiredJwtException e) {
@@ -133,22 +132,21 @@ public class TokenProvider {
         // HttpServletRequest 에서 Cookie Value : JWT 가져오기
         public String getTokenFromRequest(HttpServletRequest req) {
             Cookie[] cookies = req.getCookies();
-            log.debug("GetTokenFromRequest cookies:{}", Arrays.toString(cookies));
 
             if (cookies == null) {
-                log.debug("CookieList is Empty");
+                log.debug("[CookieList is Empty]");
                 return null;
             }
 
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals(AUTHORIZATION_HEADER)) {
-                        log.debug("Found cookie : {}",cookie.getName());
+                        log.debug("[Found cookie : {}]",cookie.getName());
                         try {
                             String decode = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                            log.debug("Decode Complete. ");
+                            log.debug("[Decode Complete. ]");
                             return decode;
                         } catch (UnsupportedEncodingException e) {
-                            log.error("Un supported encoding method.");
+                            log.error("[Un supported encoding method.]");
                             return null;
                         }
                     }
