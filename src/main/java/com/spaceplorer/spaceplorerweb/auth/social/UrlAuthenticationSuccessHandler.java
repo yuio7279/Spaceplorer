@@ -1,5 +1,6 @@
 package com.spaceplorer.spaceplorerweb.auth.social;
 
+import com.spaceplorer.spaceplorerweb.auth.jwt.RefreshTokenProvider;
 import com.spaceplorer.spaceplorerweb.auth.jwt.TokenProvider;
 import com.spaceplorer.spaceplorerweb.domain.Role;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import java.util.Collection;
 public class UrlAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final TokenProvider tokenProvider;
+    private final RefreshTokenProvider refreshTokenProvider;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
@@ -30,6 +32,8 @@ public class UrlAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucc
         Role role = getRole(authentication);
 
         String createdToken = tokenProvider.createToken(userName, role);
+        String refreshToken = refreshTokenProvider.createRefreshToken(userName);
+        refreshTokenProvider.saveRefreshToken(userName, refreshToken);
 
         tokenProvider.addJwtToCookie(createdToken,response);
         log.info("[Complete to login:{}, {}]",userName, role);
