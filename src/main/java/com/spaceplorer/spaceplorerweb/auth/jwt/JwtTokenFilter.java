@@ -24,34 +24,38 @@ import java.util.List;
 @Slf4j
 public class JwtTokenFilter extends OncePerRequestFilter {
 
+
     private final TokenProvider tokenProvider;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.debug("[JwtTokenFilter:]");
-        String token_ = tokenProvider.getTokenFromRequest(request);
+        try {
 
-        if(token_ == null){
-            filterChain.doFilter(request, response);
-        }else{
-            String token = tokenProvider.substringToken(token_);
-            if(tokenProvider.validateToken(token))
-            {
-                log.debug("[Found jwt token:{}]",token);
+            String token_ = tokenProvider.getTokenFromRequest(request);
 
-                //claims객체에서 사용자 정보 추출하기
-                Claims claims = tokenProvider.getUserInfoFromToken(token);
-                String username = claims.getSubject();
-                String role = (String) claims.get("auth");
-
-
-                //usernamePasswordAuthenticationToken, Authentication 객체 만들어서 홀더에 넣기
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(username, "", getRoleList(role));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                log.debug("[Authentication success:]");
-
+            if (token_ == null) {
                 filterChain.doFilter(request, response);
+            } else {
+                String token = tokenProvider.substringToken(token_);
+                if (tokenProvider.validateToken(token)) {
+                    log.debug("[Found jwt token:{}]", token.substring(0,6)+"...");
+
+                    //claims객체에서 사용자 정보 추출하기
+                    Claims claims = tokenProvider.getUserInfoFromToken(token);
+                    String username = claims.getSubject();
+                    String role = (String) claims.get("auth");
+
+
+                    //usernamePasswordAuthenticationToken, Authentication 객체 만들어서 홀더에 넣기
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(username, "", getRoleList(role));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    log.debug("[Authentication success]");
+
+                    filterChain.doFilter(request, response);
+                }
             }
+        }catch (Exception e){
+            log.error("[error :{}]",e.getMessage());
         }
     }
 

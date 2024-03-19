@@ -27,22 +27,27 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        log.debug("[registrationId:{}]",registrationId);
-
-        SocialLoginStrategy socialLoginStrategy = socialLoginSelector.select(registrationId);
-        log.debug("[social login strategy:{}]",socialLoginStrategy.getClass().getSimpleName());
-
-        OAuth2User oAuth2User = super.loadUser(userRequest);
-        SocialUserDetails socialUserDetails = socialLoginStrategy.loadUser( oAuth2User.getAttributes());
-        log.debug("[socialUserDetails:{}]",socialUserDetails);
-        //DB에 사용자 정보 저장
-        UserSaveRequestDto requestDto = new UserSaveRequestDto(socialUserDetails);
-        userService.saveUser(requestDto);
+        try {
 
 
+            String registrationId = userRequest.getClientRegistration().getRegistrationId();
+            log.debug("[registrationId:{}]", registrationId);
 
-        return oAuth2User;
+            SocialLoginStrategy socialLoginStrategy = socialLoginSelector.select(registrationId);
+            log.debug("[social login strategy:{}]", socialLoginStrategy.getClass().getSimpleName());
+            OAuth2User oAuth2User = super.loadUser(userRequest);
+            SocialUserDetails socialUserDetails = socialLoginStrategy.loadUser(oAuth2User.getAttributes());
+            log.debug("[socialUserDetails:{}]", socialUserDetails);
+            //DB에 사용자 정보 저장
+            UserSaveRequestDto requestDto = new UserSaveRequestDto(socialUserDetails);
+            userService.saveUser(requestDto);
+
+            return oAuth2User;
+        }
+        catch (Exception e) {
+                    log.error("Error during social user processing: {}", e.getMessage(), e);
+                    throw e;
+        }
+
     }
 }
