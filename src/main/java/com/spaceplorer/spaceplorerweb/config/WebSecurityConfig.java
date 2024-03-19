@@ -1,14 +1,12 @@
 package com.spaceplorer.spaceplorerweb.config;
 
-import com.spaceplorer.spaceplorerweb.auth.UrlAuthenticationSuccessHandler;
-import com.spaceplorer.spaceplorerweb.auth.CustomOAuth2UserService;
 import com.spaceplorer.spaceplorerweb.auth.jwt.JwtTokenFilter;
+import com.spaceplorer.spaceplorerweb.auth.social.UrlAuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -19,8 +17,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 
@@ -28,10 +26,12 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @Slf4j
+
 public class WebSecurityConfig {
 
     private final OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService;
     private final UrlAuthenticationSuccessHandler urlAuthenticationSuccessHandler;
+    private final LogoutHandler logoutRemoveTokenHandler;
     private final JwtTokenFilter jwtTokenFilter;
 
     /**
@@ -77,21 +77,21 @@ public class WebSecurityConfig {
 
                         //form
                         .requestMatchers("/",/*"/index.html",*/"/permitAllContents.html").permitAll()
-                        .requestMatchers("/login/**","/logout/**","/error").permitAll()
+                        .requestMatchers("/login/**","/error").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
 
                         //api
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/api/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                                        .invalidateHttpSession(true) // 세션 무효화
-                                        .deleteCookies("JSESSIONID") // 쿠키 삭제
-                                        .deleteCookies("Authorization") // 쿠키 삭제
-                                        .clearAuthentication(true) // 인증 정보 클리어
-                        .logoutSuccessUrl("/") // 로그아웃 성공 후 리다이렉트할 URL
+                .logout(AbstractHttpConfigurer::disable
+                        /*.logoutUrl("/logout")
+                           .invalidateHttpSession(true) // 세션 무효화
+                            .deleteCookies("JSESSIONID") // 쿠키 삭제
+                            .deleteCookies("Authorization") // 쿠키 삭제
+                            .clearAuthentication(true) // 인증 정보 클리어
+                        .logoutSuccessUrl("/") // 로그아웃 성공 후 리다이렉트할 URL*/
                 );
 
         //세션 설정 항상 stateless하게 관리
@@ -107,6 +107,7 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+    //방화벽 설정
     @Bean
     public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
         StrictHttpFirewall firewall = new StrictHttpFirewall();
@@ -114,6 +115,7 @@ public class WebSecurityConfig {
         return firewall;
     }
 
+    //WebSecuity를 수정하기 위한 방법
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
