@@ -31,7 +31,6 @@ public class WebSecurityConfig {
 
     private final OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService;
     private final UrlAuthenticationSuccessHandler urlAuthenticationSuccessHandler;
-    private final LogoutHandler logoutRemoveTokenHandler;
     private final JwtTokenFilter jwtTokenFilter;
 
     /**
