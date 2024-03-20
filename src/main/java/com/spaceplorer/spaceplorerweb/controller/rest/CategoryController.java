@@ -1,4 +1,4 @@
-package com.spaceplorer.spaceplorerweb.controller;
+package com.spaceplorer.spaceplorerweb.controller.rest;
 
 import com.spaceplorer.spaceplorerweb.common.ApiResponseDto;
 import com.spaceplorer.spaceplorerweb.dto.response.CategoryResponseDto;
