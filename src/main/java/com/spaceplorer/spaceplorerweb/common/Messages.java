@@ -11,12 +11,12 @@ public class Messages {
     public final static String NOT_FOUND_USER = "회원을 찾을 수 없습니다.";
 
     //TOKEN
-    public final static String NOT_FOUND_TOKEN= "[Not found token.]";
-    public final static String EXPIRED_TOKEN= "[Expired token.";
-    public final static String EXPIRED_REFRESH_TOKEN= "[Expired refresh token. please login again";
-    public final static String INVALID_TOKEN= "[Invalid token.]";
-    public final static String INVALID_TOKEN_SIGNATURE= "[Invalid token signature.]";
-    public final static String UNSUPPORTED_TOKEN= "[Unsupported token.]";
+    public final static String NOT_FOUND_TOKEN= "[Not found token]";
+    public final static String EXPIRED_TOKEN= "[Expired token";
+    public final static String EXPIRED_REFRESH_TOKEN= "[Expired refresh token";
+    public final static String INVALID_TOKEN= "[Invalid token]";
+    public final static String INVALID_TOKEN_SIGNATURE= "[Invalid token signature]";
+    public final static String UNSUPPORTED_TOKEN= "[Unsupported token]";
     public final static String CREATED_TOKEN= "토큰이 생성 되었습니다.";
 
     //COOKIE
