@@ -27,7 +27,7 @@ public class TokenProvider {
     //JWT 토큰 제공자
     public static final String BEARER_PREFIX = "Bearer ";
     public static final String AUTHORIZATION_HEADER  = "Authorization";
-    public final long TOKEN_TIME = 60 * 30 * 1000L; // 10분
+    public final long TOKEN_TIME = 60 * 30 * 1000L; // 30분
     public static final String AUTHORIZATION_KEY = "auth"; // 사용자 권한 값의 KEY
     public static final int SUBSTRING_NUMBER = 7;
 
@@ -97,16 +97,12 @@ public class TokenProvider {
         }
 
         // 토큰 검증
-        public boolean validateToken(String token) {
+        public boolean validateToken(String token) throws ExpiredJwtException{
             try {
                 Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
                 return true;
             } catch (SecurityException | MalformedJwtException | SignatureException e) {
                 log.error(INVALID_TOKEN_SIGNATURE);
-            } catch (ExpiredJwtException e) {
-                log.warn(EXPIRED_TOKEN+" {}...]",token.substring(0, SUBSTRING_NUMBER) );
-                log.debug("[Looking for refresh token..]");
-
             } catch (UnsupportedJwtException e) {
                 log.error(UNSUPPORTED_TOKEN);
             } catch (IllegalArgumentException e) {
