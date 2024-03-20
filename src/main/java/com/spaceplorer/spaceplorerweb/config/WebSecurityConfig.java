@@ -16,9 +16,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 
@@ -32,6 +32,7 @@ public class WebSecurityConfig {
     private final OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService;
     private final UrlAuthenticationSuccessHandler urlAuthenticationSuccessHandler;
     private final JwtTokenFilter jwtTokenFilter;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
 
     /**
      * WebSecurityConfigrerAdapter는 더이상 사용되지 않는다 5.7~
@@ -76,7 +77,7 @@ public class WebSecurityConfig {
 
                         //form
                         .requestMatchers("/",/*"/index.html",*/"/permitAllContents.html").permitAll()
-                        .requestMatchers("/login/**","/error").permitAll()
+                        .requestMatchers("/login/**","/errors").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
 
                         //api
@@ -91,6 +92,9 @@ public class WebSecurityConfig {
                             .deleteCookies("Authorization") // 쿠키 삭제
                             .clearAuthentication(true) // 인증 정보 클리어
                         .logoutSuccessUrl("/") // 로그아웃 성공 후 리다이렉트할 URL*/
+                )
+                .exceptionHandling((exceptions) -> exceptions
+                        .authenticationEntryPoint(authenticationEntryPoint)
                 );
 
         //세션 설정 항상 stateless하게 관리
