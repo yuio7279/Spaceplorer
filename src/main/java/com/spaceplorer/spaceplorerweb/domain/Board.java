@@ -57,11 +57,11 @@ public class Board {
     //생성 시간
     @CreatedDate
     @Column(updatable = false)
-    private LocalDateTime createdTime;
+    private LocalDateTime createdAt;
 
     //수정 시간
     @LastModifiedDate
-    private LocalDateTime modifiedTime;
+    private LocalDateTime modifiedAt;
 
     public Board(String title, String content, City city, User user, Category category) {
         this.title = title;
