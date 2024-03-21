@@ -79,7 +79,11 @@ public class WebSecurityConfig {
                         //form
                         .requestMatchers(HttpMethod.GET,"/").permitAll()
                             //auth
-                        .requestMatchers(HttpMethod.GET,"/login/**","/errors").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/login/**").permitAll()
+                            //error
+                        .requestMatchers("/errors/**", "/errors", "/error").permitAll()
+
+
                         .requestMatchers(HttpMethod.GET,"/boards/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         //api
