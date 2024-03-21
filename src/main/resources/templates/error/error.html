@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>에러가 발생했습니다.</title>
+    <script th:inline="javascript">
+        window.onload = function() {
+            // 서버로부터 전달받은 에러 메시지를 alert로 표시
+            var errorMessage = [[${errorMessage}]]
+            alert(errorMessage);
+            // / 리다이렉트
+            window.location.href = "/";
+        };
+    </script>
+</head>
+<body>
+<h1>Error Page</h1>
+</body>
+</html>
