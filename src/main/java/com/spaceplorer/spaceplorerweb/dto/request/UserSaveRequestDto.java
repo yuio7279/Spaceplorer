@@ -15,7 +15,6 @@ public class UserSaveRequestDto {
     private String userName;
     private Long socialId;
     private String socialProvider;
-    private String phone;
     private String email;
     private String profileImage;
     private String thumbnail;
@@ -29,7 +28,6 @@ public class UserSaveRequestDto {
         this.socialProvider = socialUserDetails.getSocialProvider();
         this.email = socialUserDetails.getEmail();
         this.profileImage = socialUserDetails.getProfileImage();
-        this.phone = socialUserDetails.getPhone();
         this.thumbnail = socialUserDetails.getThumbnail();
         this.role = Role.OAUTH2_USER;
     }
