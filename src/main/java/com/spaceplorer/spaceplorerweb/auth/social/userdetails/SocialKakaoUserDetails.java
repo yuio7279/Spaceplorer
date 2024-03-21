@@ -14,7 +14,6 @@ public class SocialKakaoUserDetails implements SocialUserDetails{
     private final Long socialId;
     private final String userName;
     private final String email;
-    private final String phone;
     private final String thumbnail;
     private final String profileImage;
     private final String socialProvider = "kakao";
@@ -27,7 +26,7 @@ public class SocialKakaoUserDetails implements SocialUserDetails{
             this.socialId = socialId;
             //테스트 계정은 false여도 데이터는 들어온다. 임시로 둘다 데이터 담아놓게끔 하였다. 후에 수정해주기!!
             this.email = kakaoAccount.emailNeedsAgreement? kakaoAccount.email : kakaoAccount.email;
-            this.phone = kakaoAccount.phoneNeedsAgreement? kakaoAccount.phone : kakaoAccount.phone;
+            //this.phone = kakaoAccount.phoneNeedsAgreement? kakaoAccount.phone : kakaoAccount.phone;
             this.thumbnail = (kakaoAccount.profile != null)? kakaoAccount.profile.thumbnailImageUrl : null;
             this.profileImage = (kakaoAccount.profile != null)? kakaoAccount.profile.profileImageUrl : null;
             this.userName = this.email != null? getConvertUserName(email) : null;
@@ -40,7 +39,7 @@ public class SocialKakaoUserDetails implements SocialUserDetails{
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class KakaoAccount {
             private final String email;
-            private final String phone;
+            //private final String phone;
             private final boolean emailNeedsAgreement;
             private final boolean phoneNeedsAgreement;
             private final Profile profile;
@@ -48,12 +47,12 @@ public class SocialKakaoUserDetails implements SocialUserDetails{
             @JsonCreator
             public KakaoAccount(
                     @JsonProperty("email") String email,
-                    @JsonProperty("phone_number") String phone,
+                    /*@JsonProperty("phone_number") String phone,*/
                     @JsonProperty("email_needs_agreement") boolean emailNeedsAgreement,
                     @JsonProperty("phone_number_needs_agreement") boolean phoneNeedsAgreement,
                     @JsonProperty("profile") Profile profile) {
                 this.email = email;
-                this.phone = phone;
+                //this.phone = phone;
                 this.emailNeedsAgreement = emailNeedsAgreement;
                 this.phoneNeedsAgreement = phoneNeedsAgreement;
                 this.profile = profile;
