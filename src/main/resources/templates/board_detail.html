@@ -2,8 +2,25 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시글 상세</title>
 </head>
 <body>
+<span th:text="${board.id}">글 번호</span> -
+<span th:text="${board.title}">제목</span> -
+<span th:text="${board.author}">작성자</span> -
+<span th:text="${board.content}">내용</span> -
+<span th:text="${board.likeCount} + ' likes'">좋아요 수</span> -
+<span th:text="${board.views} + ' views'">조회 수</span> -
+<span th:text="${board.categoryName}">카테고리</span> -
+<span th:text="${board.cityName}">도시</span>
+
+
+
+private String thumbnail;
+private List<ImageResponseDto> imageList;
+
+<!-- Flash Message가 존재할 경우 JavaScript Alert 표시 -->
+<div th:if="${message}" th:text="'alert(\'' + ${message} + '\');'"></div>
 </body>
 </html>
+
