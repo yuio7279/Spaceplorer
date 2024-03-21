@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -76,10 +77,11 @@ public class WebSecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 
                         //form
-                        .requestMatchers("/",/*"/index.html",*/"/permitAllContents.html").permitAll()
-                        .requestMatchers("/login/**","/errors").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
-
+                        .requestMatchers(HttpMethod.GET,"/").permitAll()
+                            //auth
+                        .requestMatchers(HttpMethod.GET,"/login/**","/errors").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/boards/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         //api
                         .requestMatchers("/api/**").permitAll()
 
