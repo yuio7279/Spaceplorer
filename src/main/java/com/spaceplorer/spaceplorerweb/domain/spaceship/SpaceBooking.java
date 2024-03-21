@@ -20,17 +20,16 @@ public class SpaceBooking {
 
     private boolean isBooked;
 
-    @OneToOne(mappedBy = "spaceBooking", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "space_ship_class_id")
     private SpaceShipClass spaceShipClass;
 
-    public SpaceBooking(String seatCode, boolean isBooked) {
+
+    public SpaceBooking(String seatCode, boolean isBooked, SpaceShipClass spaceShipClass) {
         this.seatCode = seatCode;
         this.isBooked = isBooked;
+        this.spaceShipClass = spaceShipClass;
     }
 
-    public void addSpaceShipClass(SpaceShipClass spaceShipClass){
-        this.spaceShipClass = spaceShipClass;
-        spaceShipClass.setSpaceBooking(this);
-    }
 
 }
