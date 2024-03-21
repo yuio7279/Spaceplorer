@@ -27,7 +27,7 @@ public class Hhms {
     @Column(nullable = false)
     private  Long hhmsSpeed;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "space_ship_id")
     private SpaceShip spaceShip;
 
@@ -36,6 +36,10 @@ public class Hhms {
         this.hhmsSpeed = hhmsSpeed;
         this.hhmsDefaultCost = hhmsDefaultCost;
         this.hhmsPerDayCost = hhmsPerDayCost;
+        this.spaceShip = spaceShip;
+    }
+
+    public void setSpaceShip(SpaceShip spaceShip) {
         this.spaceShip = spaceShip;
     }
 }
