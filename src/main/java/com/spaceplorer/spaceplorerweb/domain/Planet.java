@@ -50,7 +50,7 @@ public class Planet {
 
     //행성에 존재하는 도시
     //항상 cityList를 조회하기 때문에 eager로 설정
-    @OneToMany(mappedBy = "planet")
+    @OneToMany(mappedBy = "planet", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<City> cityList = new ArrayList<>();
 
 
