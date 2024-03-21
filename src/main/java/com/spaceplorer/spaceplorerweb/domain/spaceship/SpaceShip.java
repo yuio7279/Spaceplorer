@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Table(name = "space_ship")
@@ -39,6 +42,13 @@ public class SpaceShip extends Option {
     @Column(nullable = false)
     private  String description;
 
+    //Hyper high-speed movement system : 장거리용 고속 이동 시스템 탑재 우주선
+    @OneToOne(mappedBy = "spaceShip",fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Hhms hhms;
+
+    //비행기 좌석 등급, 가격을 유연하게 하기 위해 만들었다.
+    @OneToMany(mappedBy = "spaceShip", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SpaceShipClass> spaceShipClassList = new ArrayList<>();
 
 
     //기본 우주선 생성
@@ -52,5 +62,14 @@ public class SpaceShip extends Option {
         this.description = description;
     }
 
+    public void setHhms(Hhms hhms){
+        this.hhms = hhms;
+        hhms.setSpaceShip(this);
+    }
+
+    public void addSpaceShipClass(SpaceShipClass spaceShipClass){
+        this.spaceShipClassList.add(spaceShipClass);
+        spaceShipClass.setSpaceShip(this);
+    }
 
 }
