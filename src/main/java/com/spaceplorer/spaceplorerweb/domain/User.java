@@ -1,11 +1,12 @@
 package com.spaceplorer.spaceplorerweb.domain;
 
-import com.spaceplorer.spaceplorerweb.auth.social.userdetails.SocialUserDetails;
 import com.spaceplorer.spaceplorerweb.dto.request.UserSaveRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -33,15 +34,17 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
-    private String phone;
-
     private String profileImage;
 
     private String thumbnail;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    //유저만 조회 시에는 관련이 없기 때문에 LAZY
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Board> boardList = new ArrayList<>();
+
 
     //회원 저장
     public User(UserSaveRequestDto requestDto) {
@@ -50,7 +53,6 @@ public class User {
         this.socialProvider = requestDto.getSocialProvider();
         this.email = requestDto.getEmail();
         this.profileImage = requestDto.getProfileImage();
-        this.phone = requestDto.getPhone();
         this.thumbnail = requestDto.getThumbnail();
         this.role = requestDto.getRole();
     }
