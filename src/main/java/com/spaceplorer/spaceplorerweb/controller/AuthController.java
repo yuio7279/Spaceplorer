@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -46,14 +47,30 @@ public class AuthController {
     }
 
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
+/*    @GetMapping("/test/{error_code}")
+    public void test(@PathVariable(value = "error_code") String code) {
+        switch (code) {
+            case "401" -> throw new UnAuthorizedException();
+            case "403" -> throw new AccessDeniedException("접근 권한이 없습니다.");
+            case "404" -> throw new NoSuchElementException();
+            default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "제발좀 되라");
+        }
+    }*/
 
-    @GetMapping("/errors")
-    public String handleError(@RequestParam("message") String message, Model model) {
-        model.addAttribute("errorMessage", message);
-        return "errorPage"; // 에러 페이지로 이동
+    //에러핸들링
+    @GetMapping("/errors/{error_code}")
+    public String handleError(
+            Model model,
+            @RequestParam("error") String errorMessage,
+            @PathVariable(value = "error_code") String code) {
+
+        model.addAttribute("errorMessage",errorMessage);
+
+        return switch (code) {
+            case "401" -> "error/error_401";
+            case "403" -> "error/error_403";
+            case "404" -> "error/error_404";
+            default -> "error/error";
+        };
     }
 }
